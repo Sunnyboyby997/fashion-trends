@@ -1,0 +1,9 @@
+# Render 一键部署配置（Blueprint）
+# 用法：render.com 后台 → New + → Blueprint → 选择本仓库 → Apply
+services:
+  - type: web
+    name: fashion-trends
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run.py
+    plan: free
