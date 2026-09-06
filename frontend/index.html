@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TENDANCE · 时尚流行趋势观察</title>
+  <meta name="description" content="全自动时尚流行趋势分析：趋势总览、流行配色、元素热度看板与报告导出。" />
+
+  <!-- 字体：Fraunces（衬线展示体）+ Jost（几何无衬线）+ IBM Plex Mono（等宽，用于色值/元数据） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <!-- 颗粒噪点叠加层，营造纸张质感 -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===== 顶栏 / 刊头 ===== -->
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <span class="brand-eyebrow">Prêt-à-Porter · Fashion Intelligence</span>
+        <h1 class="brand-title">TENDANCE</h1>
+        <p class="brand-sub">时尚流行趋势观察站</p>
+      </div>
+
+      <nav class="nav" aria-label="页面导航">
+        <a href="#trends">趋势总览</a>
+        <a href="#forecast">趋势预测</a>
+        <a href="#colors">色彩板块</a>
+        <a href="#elements">元素热度</a>
+      </nav>
+
+      <div class="masthead-actions">
+        <span class="demo-badge" id="demoBadge" hidden>DEMO</span>
+        <button class="btn btn-ghost" id="exportBtn" type="button">导出报告</button>
+        <button class="btn btn-primary" id="refreshBtn" type="button">
+          <span class="btn-label">刷新趋势</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== 首屏 ===== -->
+    <section class="hero">
+      <div class="hero-kicker" id="lastUpdate">最近更新 ——</div>
+      <div class="sources" id="sources"></div>
+      <h2 class="hero-title">本期流行趋势<span class="hero-dot">.</span></h2>
+      <p class="hero-desc">
+        由大模型驱动的全自动趋势洞察，融合 Google Trends 搜索热度、Reddit 社区讨论、
+        电商购物信号三个真实来源，交叉验证识别「正在起飞」的趋势，自动生成图文报告。
+      </p>
+      <div class="hero-rule"></div>
+    </section>
+
+    <!-- ===== 趋势总览 ===== -->
+    <section id="trends" class="section">
+      <div class="section-head">
+        <span class="section-index">01</span>
+        <h3 class="section-title">趋势总览</h3>
+        <span class="section-en">Trends</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="trends-grid" id="trendsGrid"></div>
+    </section>
+
+    <!-- ===== 趋势预测 / 早期预警 ===== -->
+    <section id="forecast" class="section">
+      <div class="section-head">
+        <span class="section-index">02</span>
+        <h3 class="section-title">趋势预测</h3>
+        <span class="section-en">Forecast</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-hint">
+        多源动量交叉验证：搜索↑ + 讨论↑ + 购物↑ 同时升温则标记为「起飞」；置信度 = 存活数据源数量
+      </p>
+      <div class="forecast" id="forecastList"></div>
+    </section>
+
+    <!-- ===== 色彩板块 ===== -->
+    <section id="colors" class="section">
+      <div class="section-head">
+        <span class="section-index">03</span>
+        <h3 class="section-title">色彩板块</h3>
+        <span class="section-en">Palette</span>
+        <div class="section-line"></div>
+      </div>
+      <p class="section-hint">点击任意色块即可复制 HEX 色值</p>
+      <div class="palette" id="palette"></div>
+    </section>
+
+    <!-- ===== 元素热度看板 ===== -->
+    <section id="elements" class="section">
+      <div class="section-head">
+        <span class="section-index">04</span>
+        <h3 class="section-title">元素热度看板</h3>
+        <span class="section-en">Elements</span>
+        <div class="section-line"></div>
+      </div>
+      <div class="elements-board" id="elementsBoard"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      图片来自 <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> ·
+      趋势信号来自 <strong>Google Trends / Reddit / 电商</strong> 公开数据（连通时），未连通时明确标注为样例
+    </p>
+    <div class="feed-actions">
+      <span class="feed-label">业务数据流</span>
+      <a class="btn btn-ghost btn-sm" href="/api/feed" target="_blank" rel="noopener">JSON 接口</a>
+      <a class="btn btn-ghost btn-sm" href="/api/feed.csv" download>下载 CSV</a>
+      <a class="btn btn-ghost btn-sm" href="/api/forecast" target="_blank" rel="noopener">预警接口</a>
+    </div>
+  </footer>
+
+  <!-- 复制成功提示 -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
