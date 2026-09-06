@@ -1,0 +1,32 @@
+# 环境变量与密钥（绝不提交）
+.env
+
+# 本地数据库
+*.db
+*.sqlite
+*.sqlite3
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# 虚拟环境
+venv/
+.venv/
+env/
+
+# 日志
+*.log
+
+# 可执行二进制（如 cloudflared.exe）
+*.exe
+
+# 本机隧道脚本（含本地代理 IP，不可移植）
+start_tunnel.sh
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
