@@ -1,0 +1,18 @@
+# Web 框架
+flask>=3.0
+
+# 定时任务
+apscheduler>=3.10
+
+# 调用 Unsplash 图库 / 请求 HTTP
+requests>=2.31
+
+# 读取 .env 环境变量文件
+python-dotenv>=1.0
+
+# 大模型（Claude/Anthropic）—— 不配置密钥也可运行（自动进入演示模式）
+anthropic>=1.0
+
+# 真实趋势数据源：Google Trends（非官方库，需能访问 Google，可选代理）
+pytrends>=4.9
+pandas>=1.5
